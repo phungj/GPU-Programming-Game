@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace GPULang.src.Antlr
 {
     public abstract class GPULangASTNode
@@ -10,15 +8,19 @@ namespace GPULang.src.Antlr
     public class ProgramNode : GPULangASTNode {}
 
     // TODO: Refactor these constructors with automatic getters and setters as well
-    public class AssignmentNode(string lhsID, string rhsID) : GPULangASTNode
+    public class AssignmentNode(string lhsID, IConvertible rhsValue) : GPULangASTNode
     {
-        private readonly string _lhsID = lhsID;
-        private readonly string _rhsID = rhsID;
+        protected readonly string _lhsID = lhsID;
+        protected readonly IConvertible _rhsValue = rhsValue;
+    }
+
+    public class ArrayAssignmentNode(string lhsID, int index, IConvertible rhsValue) : AssignmentNode(lhsID, rhsValue) {
+        private readonly int _index = index;
     }
 
     public class IntLiteralNode(int value) : GPULangASTNode
     {
-        private readonly 
+        private readonly int _value = value;
     }
     
 }
